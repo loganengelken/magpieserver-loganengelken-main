@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Magpie Chat</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="shortcut icon" type="image/x-icon" href="/img/magpie.png">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <div id="chat">
+        </div>
+
+        <footer>
+            <form id="userInput">
+                <input type="text" id="msg" placeholder="Type your message here..."> <button type="submit" id="send">Send</button>
+            </form>
+            <a href="https://www.flaticon.com/free-icons/magpie" title="magpie icons"><img src="/img/magpie.png" alt="Magpie"> Magpie icons created by Ylivdesign - Flaticon</a>
+            &nbsp;
+            <a href="https://www.flaticon.com/free-icons/user" title="user icons"><img src="/img/user.png" alt="User"> User icons created by Freepik - Flaticon</a>
+        </footer>
+
+        <script lang="javascript">
+
+function chatBubble(msg, img, alt) {
+    const chat = document.getElementById('chat');
+
+    const bubble = document.createElement('div');
+    bubble.className = 'chatmsg';
+    bubble.innerHTML = '<img src="' + img + '" alt="' + alt + '">';
+    bubble.appendChild(document.createTextNode(msg));
+
+    chat.appendChild(bubble);
+    
+    bubble.scrollIntoView({behavior: 'smooth'});
+}
+
+chatBubble("Let's chat.", "/img/magpie.png", "Magpie said: ");
+        </script>
+    </body>
+</html>
