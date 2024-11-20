@@ -12,11 +12,12 @@ public class MagpieServer implements HttpHandler {
         String requestPath = exchange.getRequestURI().getPath();
 
         // Log the request
-        System.out.println(new Date() + " " + requestMethod + " request for: " + requestPath);
+        System.out.println(new Date() + " " + requestMethod + " request for Magpie: " + requestPath);
 
         // Attempt to serve a file from the public folder for any GET request
-        if ("GET".equals(requestMethod)) {
-
+        if ("POST".equals(requestMethod)&&"/chat".equals(requestPath)) {
+            String statement = new String(exchange.getRequestBody().readAllBytes());
+            System.out.println("User said: "+statement);
         }
         else {
             // If the request is not a GET request, return a 405 Method Not Allowed error
@@ -26,12 +27,13 @@ public class MagpieServer implements HttpHandler {
     }
     public static void main (String[] args) {
         // Set the default port to 8080 and the root folder to the public folder
-        int port = 8080;
+        int port = 8081;
         String rootFolder = "./public";
 
         // Create and start a new FileServer to handle file requests
         try {
             final HttpServer server = FileServer.buildFileServer(port, rootFolder);
+            server.createContext("/chat", new MagpieServer());
             server.start();
         }
         catch (IOException e) {
